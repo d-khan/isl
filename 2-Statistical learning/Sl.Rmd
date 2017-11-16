@@ -1,0 +1,82 @@
+---
+title: "ISL notes"
+author: "Danish Khan"
+date: '2017-11-12'
+output:
+  html_document:
+    fig_width: 7
+    fig_height: 6
+    fig_caption: true
+    toc: true
+    toc_float: true
+    toc_depth: 4
+---
+## Statistical learning
+### Supervised learning  
+Involves building a statistical model for predicting or estimating an output based on one or more inputs.
+
+### Unsupervised learning  
+Observes input variables with no corresponding supervising output. This is used to learn relationships and structures from data.
+
+## Types of statistical problems
+### Regression problem
+If the goal involves predicting a continuous or quantitative output then this is often referred to as a regression problem.
+
+### Classification problem
+If the goal is to predict whether the sales is going to go up or down then this is referred to as a classification problem.
+
+### Clustering problem  
+Understand about inputs and group similar inputs according to their characteristics known as clustering problem.
+
+## Variables
+### Input variable
+In supervised learning, input variables are used to predict or estimate an output. The input variables are also called predictors, independent variables (plot on x-axis), features or called just variables. The input variables are denoted by $X_{1}, X_{2}$ and so on.
+
+### Output variable
+The output variables is called response or dependent variable (plot on y-axis) and it is denoted by $Y$.
+
+### Relationship between input and output variables
+Suppose we observe a quantitative response $Y$ and inputs $X_1$, $X_2$,...,$X_p$. The general relationship between an output and input can be written using the following equation: $$Y = f(x)+\epsilon$$ where $f(x)$ is fixed but unknown function and $\epsilon$ is a random error term which is independent of X and has mean zero.
+
+## Why estimate $f(X)$
+$f(X)$ or function on x is used to estimate prediction and inference. When predicting response $Y$, lets assume that the error term averages to zero, the response can be calculated as: $$\hat{Y} = \hat{f}(X)$$
+where $\hat{f}$ represents estimated f and $\hat{Y}$ represents the prediction for $Y$.
+The accuracy of prediction $\hat{Y}$ for $Y$ depends upon two quantities: _reducible error_ and _irreducible error_. The reducible error can be improved by using the most appropriate statistical learning technique to estimate $f$. Even if the reducible error is zero, the estimated response $\hat{Y}$ contains irreducible error which cannot be improved by any statistical learning technique. Irreducible error will always provide an upper bound on the accuracy of our prediction for Y and in practice this bound is almost always unknown.
+
+### Where irreducible error comes from?
+The irreducible error may contain unmeasured variables which are useful in predicting $Y$. The irreducible error may contain unmeasurable variation. For example, the risk for an adverse reaction might vary for a given patient on a given day, depending on manufacturing variation in the drug itself or the patient's general feeling of well-being on that day.
+Assume that both $\hat f$ and $X$ are fixed, the prediction equation $\hat Y=\hat f(X)$ can be written as:
+$$E(Y-\hat Y)^2 = E[f(X) + \epsilon - \hat f(X)]^2$$
+$$E(Y-\hat Y)^2 = [f(X) - \hat f(X)]^2 + Var(\epsilon)$$
+where $[f(X) - \hat f(X)]^2$ is _reducible error_ and $Var(\epsilon)$ is _irreducible error_
+
+### Inference
+Sometimes our goal is to understand the relationship between predictors and response as oppose to predicting the outcome. For example; which predictors are associated with the response, what is the relationship between the response and each predictor, what kind of relationship exists between response and each predictor (linear or non-linear), etc.
+
+## How do we estimate $f(X)$?
+Before we jump in estimating $f(X)$, there are few terms (training dataset and test dataset) which are essential to know. Lets assume that we observed n = 30 data points. Our goal is to apply statistical learning method to the training data in order to estimate the unknown function $f$. In other words we want to find a function $\hat f$ such that $Y \approx \hat f(X)$. Most statistical learning methods can be characterized as either _parametric_ or _non-parametric_.
+
+### Parametric methods
+There are two steps involved.  
+1. Make a simple assumption is that $f$ is linear. $$f(X)=\beta_0+\beta_1X_1+\beta_2X_2+...+\beta_pX_p$$
+2. After a model is selected, we need to estimate the parameters of linear equation and apply to fit the model. The most common approach to fit the model is called _(ordinary) least squares_. There are other ways to fit the model.
+
+#### Advantages
+Reduces the problem of estimating $f$ and it is generally much easier to estimate $\beta_0+\beta_1+\beta_2+...+\beta_p$ as compared to finding an arbitrary function $f$.
+
+#### Disadvantages
+Linear model may not necessarily fit the true unknown form of $f$. There is a possibility that the chosen model is far from the true $f$, hence our estimate will be poor. There are other flexible models available which can be used to get close to the unknown for of $f$. However fitting flexible model comes with cost of using large number of parameters and hence the model becomes sensitive to any errors or noise in the dataset. This phenomenon is called _overfitting_ the data.
+
+### Non-parametric methods
+Non-parametric methods do not make assumptions about the functional form of $f$. Instead they seek an estimate of $f$ that gets as close to the data points as possible without being too rought or wiggly.
+
+#### Advantages
+More accurate estimation of $f$ as compared to parametric methods.
+
+#### Disadvantages
+Major disadvantage is that a very large number of observations is required in order to obtain an accurate estimate for $f$.
+
+## Accuracy and model interpretability
+
+
+![Tradeoff between flexibility and interpretability using different statistical learning methods.](2-7.png)
