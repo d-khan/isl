@@ -80,9 +80,20 @@ Major disadvantage is that a very large number of observations is required in or
 Based on the figure shown below, the flexibility and interpretability of model can be both high and low. The question is why high flexibility model is preferred over low flexibility and why high interpretability over low interpretability. The answer is based on an user interest. For example, if an user is interested in inference then less flexible models are easy to interpret. For example, in linear model it is easy to interpret the relationship between $Y$ and $X_1$,$X_2$,...,$X_p$. However on the other hand, if accurate prediction is required and model interpretability is less of a concern then highly flexible model might give better results. However highly flexible model comes with a price of _overfitting_ which is a major drawback in highly flexible statistical models.
 
 ![Figure: Tradeoff between flexibility and interpretability using different statistical learning methods.](2-7.png)
+
 ## Accessing model accuracy
+There is no single statistical learning method which fits for all data sets. Selecting the best approach can be one of the most challenging parts of performing statistical learning in practise.
+
+__Measuring the quality of fit__  
+In order to evaluate the performance of a statistical learning method on a given data set, we need to measure how well the prediction actually match the observed data. In regression setting, the most commonly-used measure is the _mean squared error_ (MSE) which is given by $$ MSE=\frac{1}{n}\sum_{i=1}^n(y_i- \hat f(x_i))^2 $$
+where $\hat f(x_i)$ is the prediction that $\hat f$ gives for the $i$th observation. The smaller MSE means better statistical method fit. The MSE is calculated from the above equation on the training data and hence it is called training MSE. The main goal is to get lower MSE for the test data set. The training data set could be something seen but test data set is completely unseen and we dont know how well our model predicts on the test data set. Suppose that we have clinical measurements (e.g. weight, blood pressure, height, age, family history of disease) for a number of patients, as well as information about whether each patient has diabetes. We can use these patients to train a statistical learning method to predict risk of diabetes based on clinical measurements. In practice, we want this method to accurately predict diabetes risk for future patients based on their clinical measurements. We are not very interested in whether or not the method accurately predicts diabetes risk for patients used to train the model, since we already know which of those patients have diabetes.  
+
+In some cases test data set is available which were not used to train statistical method. However when test data set is not available then training data set can be used to evaluate training MSE. Since training data set is closely related to test data set, logically lower MSE for the training data set of the chosen statistical method will give lower MSE for the test data set; however this representation is not always true and in some cases test MSE would be higher than train MSE. This is further discussed using the figure shown below.
+
+![Figure: Left - Data simulated from $f$ shown in black. Three estimates of $f$ are shown: linear regression (orange), two smoothing spline fits (blue and green). Right - Training MSE (grey curve) and test MSE (red curve). Dotted line shows irreducible error which corresponds to the lowest achievable test MSE among all possible methods](2-9.png)
 
 
-__Measuring the quality of fit__
+
+__Bias and variance tradeoff__
 
 
