@@ -106,7 +106,7 @@ _Variance_ refers to the amount by which estimated $\hat f$ would change if we e
 What is _Bias_?  
 _Bias_ refers to the error that is introduced by approximating a real-life problem. It is unlikely that any real-life problem truly has such a simple linear relationship, and so performing linear regression will undoubtedly result in some bias in the estimate of $\hat f$. Generally speaking, __more flexible methods gives high variance but low bias, and least flexible methods gives low variance but high bias.__
 
-![Squared bias (blue curve), variance (orange curve), $Var(\epsilon)$ (dashed line), and test MSE (red curve) for the three data sets. The vertical dotted line indicates the flexibility level corresponding to the smallest test MSE.](2-12.png)
+![Figure: Squared bias (blue curve), variance (orange curve), $Var(\epsilon)$ (dashed line), and test MSE (red curve) for the three data sets. The vertical dotted line indicates the flexibility level corresponding to the smallest test MSE.](2-12.png)
 
 The three plots in the above illustrate Bias and Variance equation $E\Big( y_0-\hat f(x_0)\Big)^2$. In each case the blue solid curve represents the squared bias, for different levels of flexibility, while the orange curve corresponds to the variance. The horizontal dashed line represents $Var(\epsilon)$, the irreducible error. Finally, the red curve, corresponding to the test set MSE, is the sum of these three quantities. In all three cases, the variance increases and the bias decreases as the method’s flexibility increases. However, the flexibility level corresponding to the optimal test MSE differs considerably among the three data sets, because the squared bias and variance change at different rates in each of the data sets. In the left-hand panel of Figure, the bias initially decreases rapidly, resulting in an initial sharp decrease in the expected test MSE. On the other hand, in the center panel of Figure the true f is close to linear, so there is only a small decrease in bias as flexibility increases, and the test MSE only declines slightly before increasing rapidly as the variance increases. Finally, in the right-hand panel of Figure, as flexibility increases, there is a dramatic decline in bias because the true f is very non-linear. There is also very little increase in variance as flexibility increases. Consequently, the test MSE declines substantially before experiencing a small increase as model flexibility increases.
 
@@ -120,7 +120,59 @@ When output variable $y_i$ is no longer numerical (quantitative) and the output 
 #### K-Nearest neighbors ####
 K-nearest neighbours are defined used the example below:  
 
-* Plotted a small training data sets consists of 6 blue and 6 orange observations.  
-* Drop a black cross anywhere on the training data sets and our goal is to predict that the black cross belongs to blue or an orange class.  
-* 
-![](2-14.png)
+* Plot a small training data sets consists of 6 blue and 6 orange observations.  
+* Drop a black cross anywhere on the training data sets and our goal is to predict that the black cross belongs to blue class or an orange class.  
+* Suppose that K=3 where there are two blue points and one orange point in the figure below. The estimated probabilities is 2/3 for blue points and 1/3 for orange point.  
+* Based on the probability, KNN will predict that the black cross belongs to blue points.  
+* In the right-hand panel of Figure we have applied the KNN approach with K = 3 at all of the possible values for X1 and X2, and have drawn in the corresponding KNN decision boundary.
+
+![Figure: The KNN approach using K=3. On the right side of the figure, the blue grid indicates the region in which a test observation will be assigned to the blue class, and the orange grid indicates the region in which it will be assigned to the orange class.](2-14.png)
+
+KNN can product classifiers close to the Bayes classifier. The figure below uses K=10 and it is evident from the figure below that the KNN decision boundary is very close to the Bayes classifier. 
+
+![Figure: The black curve indicates the KNN decision boundary using K = 10. The Bayes decision boundary is shown as a purple dashed line. The KNN and Bayes decision boundaries are very similar.](2-15.png)
+
+__Selection of K value__  
+Accuracy of KNN classifier depends on K value. When K=1, the decision boundary is overly flexible; this corresponds to low bias but high variance. As K grows, the decision boundary becomes less flexible and this corresponds to high bias but low variance.  
+
+![Figure: A comparison of the KNN decision boundaries (solid black curves) obtained using K = 1 and K = 100 on the data set. With K = 1, the decision boundary is overly flexible, while with K = 100 it is not sufficiently flexible. The Bayes decision boundary is shown as a purple dashed line.](2-16.png)
+
+The relationship between training error rate and test error rate varies and it depends upon highly flexible and low bias method or less flexible and highly bias model. In classification setting when K=1 (highly flexible and low bias), it is possible that training error rate may be zero but the test error rate is high. In the figure below, KNN test and training errors plotted as a function of 1/K. As 1/K increases (which means K decreases - more flexible K), the statistical method becomes more flexible and the training error rate continue to decline. However the test error rate exhibits a U-shaped characteristics which means declining at first and then increasing again.
+
+![Figure: The KNN training error rate (blue, 200 observations) and test error rate (orange, 5,000 observations). As the level of flexibility (assessed using 1/K) increases, or equivalently as the number of neighbors K decreases. The black dashed line indicates the Bayes error rate. The jumpiness of the curves is due to the small size of the training data set.](2-17.png)
+
+## Summary ##
+In both the regression and classification settings, choosing the correct level of flexibility is critical to the success of any statistical learning method. The bias-variance tradeoff, and the resulting U-shape in the test error, can make this a difficult task.
+
+## Exercises ##
+1. For each of parts (a) through (d), indicate whether we would generally expect the performance of a flexible statistical learning method to be better or worse than an inflexible method. Justify your answer.
+
+(a) The sample size _n_ is extremely large, and the number of predictors _p_ is small.  
+__Answer:__ Worse. In non-parametric methods, the accuracy of function (f) depends upon the large number of observations. However in order for flexible statistical learning to perform better, large number of predictors are required.    
+
+(b) The number of predictors _p_ is extremely large, and the number of observations _n_ is small.  
+__Answer:__ Better. Generally flexible learning methods needs large number of predictors to perform better. With respect to this question in particular, only parametric methods will be used since number of observations are small. 
+
+(c) The relationship between the predictors and response is highly non-linear.  
+__Answer:__ Better. Generally flexible learning works better when the response in non-linear. However keep in mind the U-shape characteristics for test error and bias-variance trade off which provides upper limit in terms of performance for flexible methods.    
+
+(d) The variance of the error terms, i.e. $\sigma^2 = Var(\epsilon)$, is extremely high.  
+__Answer:__   
+
+
+2. Explain whether each scenario is a classification or regression problem, and indicate whether we are most interested in inference or prediction. Finally, provide _n_ and _p_.
+
+(a) We collect a set of data on the top 500 firms in the US. For each firm we record profit, number of employees, industry and the CEO salary. We are interested in understanding which factors affect CEO salary.  
+__Answer:__ Regression problem, inference, n=500, p_1=profit, p_2=number of employees, p_3=number of industry, p_4=CEO salary
+
+(b) We are considering launching a new product and wish to know whether it will be a success or a failure. We collect data on 20 similar products that were previously launched. For each product we have recorded whether it was a success or failure, price charged for the product, marketing budget, competition price, and ten other variables.  
+__Answer:__ Classification problem, prediction, n=20, p_1=success/failure, p_2=price charged, p_3=marketing budget, p_4=competition price, p_5, ... ,p_15.  
+
+(c) We are interesting in predicting the % change in the US dollar in relation to the weekly changes in the world stock markets. Hence we collect weekly data for all of 2012. For each week we record the % change in the dollar, the % change in the US market, the % change in the British market, and the % change in the German market.  
+__Answer:__ Regression problem, prediction, n=weekly data for all of 2012, p_1=% change in the dollar, p_2, the % change in the US market, p_3=the % change in the British market, p_4=the % change in the German market.  
+
+3. We now revisit the bias-variance decomposition.  
+(a) Provide a sketch of typical (squared) bias, variance, training error, test error, and Bayes (or irreducible) error curves, on a single plot, as we go from less flexible statistical learning methods towards more flexible approaches. The x-axis should represent the amount of flexibility in the method, and the y-axis should represent the values for each curve. There should be five curves. Make sure to label each one.
+
+(b) Explain why each of the five curves has the shape displayed in part (a).
+
