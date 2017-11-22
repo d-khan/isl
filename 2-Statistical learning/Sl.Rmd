@@ -173,8 +173,11 @@ __Answer:__ Classification problem, prediction, n=20, $p_1$=success/failure, $p_
 (c) We are interesting in predicting the % change in the US dollar in relation to the weekly changes in the world stock markets. Hence we collect weekly data for all of 2012. For each week we record the % change in the dollar, the % change in the US market, the % change in the British market, and the % change in the German market.  
 __Answer:__ Regression problem, prediction, n=weekly data for all of 2012, $p_1$=% change in the dollar, $p_2$, the % change in the US market, $p_3$=the % change in the British market, $p_4$=the % change in the German market.  
 
-3. We now revisit the bias-variance decomposition.  
-(a) Provide a sketch of typical (squared) bias, variance, training error, test error, and Bayes (or irreducible) error curves, on a single plot, as we go from less flexible statistical learning methods towards more flexible approaches. The x-axis should represent the amount of flexibility in the method, and the y-axis should represent the values for each curve. There should be five curves. Make sure to label each one.
+__3. We now revisit the bias-variance decomposition.__  
 
-(b) Explain why each of the five curves has the shape displayed in part (a).
+(a) Provide a sketch of typical (squared) bias, variance, training error, test error, and Bayes (or irreducible) error curves, on a single plot, as we go from less flexible statistical learning methods towards more flexible approaches. The x-axis should represent the amount of flexibility in the method, and the y-axis should represent the values for each curve. There should be five curves. Make sure to label each one.
+__Answer:__  
+
+(b) Explain why each of the five curves has the shape displayed in part (a).  
+__Answer:__  _Bias_ refers to the error that is introduced by approximating a real-life problem. It is unlikely that any real-life problem truly can be accurately modelled using a less flexible statistical method, and so performing such method will undoubtedly result in some bias in the estimate of $\hat f$. As statistical method gets flexible, the bias gets lower and hence accurate estimation can be achieved. _Variance_ refers to the amount by which estimated $\hat f$ would change if we estimated it using a different training data set. Ideally estimated $\hat f$ should not change significantly between different training data sets. If it does, this mean that the statistical method has high variance. Generally flexible statistical methods have higher variance. What it means that if there is a slight change in training data sets, the estimated $\hat f$ will change significantly.
 
