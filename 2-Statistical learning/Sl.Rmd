@@ -1,5 +1,5 @@
 ---
-title: "ISL notes"
+title: "Statistical Learning"
 author: "Danish Khan"
 date: '2017-11-12'
 output:
@@ -12,34 +12,36 @@ output:
     toc_depth: 4
     theme: journal
 ---
-## Statistical learning
-### Supervised learning ###
+## What is statistical learning?
+Statistical learning deals with the problem of finding a predictive function $f$ based on data.  
+
+### Supervised learning
 Involves building a statistical model for predicting or estimating an output based on one or more inputs.
 
-### Unsupervised learning ###
+### Unsupervised learning
 Observes input variables with no corresponding supervising output. This is used to learn relationships and structures from data.
 
 ## Types of statistical problems
-### Regression problem ###
+### Regression problem
 If the goal involves predicting a continuous or quantitative output then this is often referred to as a regression problem.
 
-### Classification problem ###
+### Classification problem
 If the goal is to predict a qualitative response (for example, whether the sales is going to go up or down) then this is referred to as a classification problem.
 
-### Clustering problem ###
+### Clustering problem
 Understand about inputs and group similar inputs according to their characteristics known as clustering problem.
 
 ## Variables
-### Input variable ###
+### Input variable 
 In supervised learning, input variables are used to predict or estimate an output. The input variables are also called predictors, independent variables (plot on x-axis), features or called just variables. The input variables are denoted by $X_{1}, X_{2}$ and so on.
 
-### Output variable ###
+### Output variable 
 The output variables is called response or dependent variable (plot on y-axis) and it is denoted by $Y$.
 
-## Relationship between input and output variables ##
+## Relationship between input and output variables 
 Suppose we observe a quantitative response $Y$ and inputs $X_1$, $X_2$,...,$X_p$. The general relationship between an output and input can be written using the following equation: $$Y = f(x)+\epsilon$$ where $f(x)$ is fixed but unknown function and $\epsilon$ is a random error term which is independent of X and has mean zero.
 
-### Prediction ###
+### Prediction 
 $f(X)$ or function on X is used to estimate prediction and inference. When predicting response $Y$, lets assume that the error term averages to zero, the response can be calculated as: $$\hat{Y} = \hat{f}(X)$$
 where $\hat{f}$ represents estimated f and $\hat{Y}$ represents the prediction for $Y$.
 The accuracy of prediction $\hat{Y}$ for $Y$ depends upon two quantities: _reducible error_ and _irreducible error_. The reducible error can be improved by using the most appropriate statistical learning technique to estimate $f$. Even if the reducible error is zero, the estimated response $\hat{Y}$ contains irreducible error which cannot be improved by any statistical learning technique. Irreducible error will always provide an upper bound on the accuracy of our prediction for Y and in practice this bound is almost always unknown.
@@ -51,13 +53,13 @@ $$E(Y-\hat Y)^2 = E[f(X) + \epsilon - \hat f(X)]^2$$
 $$E(Y-\hat Y)^2 = [f(X) - \hat f(X)]^2 + Var(\epsilon)$$
 where $[f(X) - \hat f(X)]^2$ is _reducible error_ and $Var(\epsilon)$ is _irreducible error_
 
-### Inference ###
+### Inference 
 Sometimes our goal is to understand the relationship between predictors and response as oppose to predicting the outcome. For example; which predictors are associated with the response, what is the relationship between the response and each predictor, what kind of relationship exists between response and each predictor (linear or non-linear), etc.
 
-## How do we estimate $f(X)$? ##
+## How do we estimate $f(X)$? 
 Before we jump in estimating $f(X)$, there are few terms (training dataset and test dataset) which are essential to know. Lets assume that we observed n = 30 data points. Our goal is to apply statistical learning method to the training data in order to estimate the unknown function $f$. In other words we want to find a function $\hat f$ such that $Y \approx \hat f(X)$. Most statistical learning methods can be characterized as either _parametric_ or _non-parametric_.
 
-### Parametric methods ###
+### Parametric methods 
 There are two steps involved.  
 1. Make a simple assumption is that $f$ is linear. $$f(X)=\beta_0+\beta_1X_1+\beta_2X_2+...+\beta_pX_p$$
 2. After a model is selected, we need to estimate the parameters of linear equation and apply to fit the model. The most common approach to fit the model is called _(ordinary) least squares_. There are other ways to fit the model.
@@ -68,7 +70,7 @@ Reduces the problem of estimating $f$ and it is generally much easier to estimat
 _Disadvantages_  
 Linear model may not necessarily fit the true unknown form of $f$. There is a possibility that the chosen model is far from the true $f$, hence our estimate will be poor. There are other flexible models available which can be used to get close to the unknown for of $f$. However fitting flexible model comes with cost of using large number of parameters and hence the model becomes sensitive to any errors or noise in the dataset. This phenomenon is called _overfitting_ the data.
 
-### Non-parametric methods ###
+### Non-parametric methods 
 Non-parametric methods do not make assumptions about the functional form of $f$. Instead they seek an estimate of $f$ that gets as close to the data points as possible without being too rought or wiggly.
 
 _Advantages_  
@@ -85,7 +87,7 @@ Based on the figure shown below, the flexibility and interpretability of model c
 ## Accessing model accuracy
 There is no single statistical learning method which fits for all data sets. Selecting the best approach can be one of the most challenging parts of performing statistical learning in practise.
 
-### Measuring the quality of fit ###
+### Measuring the quality of fit 
 In order to evaluate the performance of a statistical learning method on a given data set, we need to measure how well the prediction actually match the observed data. In regression setting, the most commonly-used measure is the _mean squared error_ (MSE) which is given by $$ MSE=\frac{1}{n}\sum_{i=1}^n(y_i- \hat f(x_i))^2 $$
 where $\hat f(x_i)$ is the prediction that $\hat f$ gives for the $i$th observation. The smaller MSE means better statistical method fit. The MSE is calculated from the above equation on the training data and hence it is called training MSE. The main goal is to get lower MSE for the test data set. The training data set could be something seen but test data set is completely unseen and we dont know how well our model predicts on the test data set. Suppose that we have clinical measurements (e.g. weight, blood pressure, height, age, family history of disease) for a number of patients, as well as information about whether each patient has diabetes. We can use these patients to train a statistical learning method to predict risk of diabetes based on clinical measurements. In practice, we want this method to accurately predict diabetes risk for future patients based on their clinical measurements. We are not very interested in whether or not the method accurately predicts diabetes risk for patients used to train the model, since we already know which of those patients have diabetes.  
 
@@ -97,7 +99,7 @@ As shown in the figure (left hand), it is evident that flexible model tends to f
 increases, training MSE will decrease, but the test MSE may not. When a given method yields a small training MSE but a large test MSE, we are said to be overfitting the data. This happens because our statistical learning procedure is working too hard to find patterns in the training data, and may be picking up some patterns that are just caused by random chance rather than by true properties of the unknown function f. When we overfit the training data, the test MSE will be very large because the supposed patterns that the method found in the training data simply don’t exist in the test data. Note that regardless of whether or not overfitting has occurred, we almost always expect the training MSE to be smaller than the test MSE because most statistical learning methods either directly or
 indirectly seek to minimize the training MSE. Overfitting refers specifically to the case in which a less flexible model would have yielded a smaller test MSE.
 
-### Bias and variance tradeoff ### 
+### Bias and variance tradeoff  
 The U-shaped observed in the test MSE is not just random. This is a result of two competing properties _variance_ and _bias_. The _expected test MSE_ can be written as $$E\Big( y_0-\hat f(x_0)\Big)^2 = Var\Big(\hat f(x_0)\Big) + \Big[Bias\Big(\hat f(x_0)\Big)\Big]^2 + Var(\epsilon)$$
 Here the notation $Var\Big(\hat f(x_0)\Big)$ refers to variance and $\Big[Bias\Big(\hat f(x_0)\Big)\Big]^2$ refers to bias. The above equation shows that in order to minimize the expected test error rate, we need to find a statistical method which gives low variance and bias. Variance and bias are non-negative numbers and expected test MSE can never go down below $Var(\epsilon)$.  
 
@@ -113,12 +115,12 @@ The three plots in the above illustrate Bias and Variance equation $E\Big( y_0-\
 
 In summary, statistical learning methods require low variance and bias. However in real world chances of getting both low is slim. The trade-off between variance and bias should always keep in mind when selecting statistical learning methods.
 
-### The classification setting ###
+### The classification setting 
 When output variable $y_i$ is no longer numerical (quantitative) and the output is based on some qualitative responses. Similar to regression settings, the good classifier is one for which the test error is smallest.
 
-#### The Bayes Classifier ####
+#### The Bayes Classifier 
 
-#### K-Nearest neighbors ####
+#### K-Nearest neighbors 
 K-nearest neighbours are defined used the example below:  
 
 * Plot a small training data sets consists of 6 blue and 6 orange observations.  
@@ -193,4 +195,4 @@ __5. What are the advantages and disadvantages of a very flexible (versus a less
 
 __6. Describe the differences between a parametric and a non-parametric statistical learning approach. What are the advantages of a parametric approach to regression or classification (as opposed to a non-parametric approach)? What are its disadvantages?__
 
-__7. The table below provides a training data set containing six observa- tions, three predictors, and one qualitative response variable.__
+__7. The table below provides a training data set containing six observations, three predictors, and one qualitative response variable.__

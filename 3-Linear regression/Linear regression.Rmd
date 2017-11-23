@@ -1,0 +1,35 @@
+---
+title: "Linear Regression"
+author: "Danish Khan"
+date: '2017-11-23'
+output:
+  html_document:
+    fig_width: 7
+    fig_height: 6
+    fig_caption: true
+    toc: true
+    toc_float: true
+    toc_depth: 4
+    theme: journal
+---
+
+Linear regression is a simple useful tool for predicting a quantitative response. Linear regression is still a useful and widely used statistical learning method. 
+
+Recall the Advertising data as shown below in Figure displays sales (in thousands of units) for a particular product as a function of advertis- ing budgets (in thousands of dollars) for TV, radio, and newspaper media. Suppose that in our role as statistical consultants we are asked to suggest, on the basis of this data, a marketing plan for next year that will result in high product sales. What information would be useful in order to provide such a recommendation? 
+
+>![Figure: The Advertising data set. The plot displays sales, in thousands of units, as a function of TV, radio, and newspaper budgets, in thousands of dollars, for 200 different markets. In each plot we show the simple least squares fit of sales to that variable, as described in Linear Regression chapter. In other words, each blue line represents a simple model that can be used to predict sales using TV, radio, and newspaper, respectively.](2-1.png)
+
+There are few important questions that we might seek to address:
+
+* Is there a relationship between advertising budget and sales?  
+* How strong is the relationship between advertising budget and sales?  
+* Which media contribute to sales?  
+* How accurately can we estimate the effect of each medium on sales?  
+* How accurately can we predict future sales?  
+* Is the relationship linear?  
+* Is there synergy among the advertising media?  
+
+## Simple linear regression
+
+
+
