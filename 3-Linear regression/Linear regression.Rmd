@@ -29,7 +29,17 @@ There are few important questions that we might seek to address:
 * Is the relationship linear?  
 * Is there synergy among the advertising media?  
 
-## Simple linear regression
+## Simple linear regression  
+Simple linear regression is a very straightforward approach for predicting a quantitative response $Y$ on the basis of a single predictor variable $X$. The relationship can be written as: $$Y \approx \beta_0 + \beta_1X$$.
+
+In this advertising example, $Y$ represent sales and $X$ represents TV or radio or newspaper advertising. Mathematically the equation can be written as: $$sales \approx \beta_0 + \beta_1 \times TV$$
+
+where $\beta_0$ is intercept and $\beta_1$ is slope. These $\beta_0$ and $\beta_1$ are unknown constants these are known as model _coefficients_ or _parameters_.
+
+When training data is used to estimate $\beta_0$ and $\beta_1$ and to predict future sales $Y$ then a hat symbol is used to denote the estimated value for an unknown parameter or coefficient, or to denote the predicted value of the response. The equation can be written as: $$y = \hat \beta_0 + \hat \beta_1x$$
+
+## Estimating the coefficients
+
 
 
 
