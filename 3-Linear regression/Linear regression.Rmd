@@ -55,6 +55,8 @@ Based on the above figure, $\hat \beta_0 = 7.03$ which is intercept. This means 
 
 ## Accessing the accuracy of the coefficient estimates  
 
+The true relationship between $X$ and $Y$ is $$Y = f(X) + \epsilon$$ where $f$ is an unknown function and $\epsilon$ is a mean-zero random error term. If we assume that $f$ is linear then the equation becomes: $$Y=\beta_0 + \beta_1X + \epsilon$$
+
 
 
 
