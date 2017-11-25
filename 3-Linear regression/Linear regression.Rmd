@@ -57,7 +57,7 @@ Based on the above figure, $\hat \beta_0 = 7.03$ which is intercept. This means 
 
 The true relationship between $X$ and $Y$ is $$Y = f(X) + \epsilon$$ where $f$ is an unknown function and $\epsilon$ is a mean-zero random error term. If we assume that $f$ is linear then the equation becomes: $$Y=\beta_0 + \beta_1X + \epsilon$$
 
-
+Here $\beta_0$ is the intercept term that is, the expected value of Y when X = 0, and $\beta_1$ is the slope—the average increase in $Y$ associated with a one-unit increase in $X$.
 
 
 
