@@ -191,7 +191,8 @@ __4. You will now think of some real-life applications for statistical learning.
 
 (c) Describe three real-life applications in which cluster analysis might be useful.  
 
-__5. What are the advantages and disadvantages of a very flexible (versus a less flexible) approach for regression or classification? Under what circumstances might a more flexible approach be preferred to a less flexible approach? When might a less flexible approach be preferred?__
+__5. What are the advantages and disadvantages of a very flexible (versus a less flexible) approach for regression or classification? Under what circumstances might a more flexible approach be preferred to a less flexible approach? When might a less flexible approach be preferred?__  
+__Answer:__ Flexible approach works well when the relationship between predictors and response is non-linear. However too much of a flexible approach creates overfitting the data and as a result Mean Squared Error rate increases. Less flexible approach works better when the relationship is close to linear.
 
 __6. Describe the differences between a parametric and a non-parametric statistical learning approach. What are the advantages of a parametric approach to regression or classification (as opposed to a non-parametric approach)? What are its disadvantages?__
 
