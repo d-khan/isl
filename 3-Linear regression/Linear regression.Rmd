@@ -17,7 +17,7 @@ Linear regression is a simple useful tool for predicting a quantitative response
 
 Recall the Advertising data as shown below in Figure displays sales (in thousands of units) for a particular product as a function of advertis- ing budgets (in thousands of dollars) for TV, radio, and newspaper media. Suppose that in our role as statistical consultants we are asked to suggest, on the basis of this data, a marketing plan for next year that will result in high product sales. What information would be useful in order to provide such a recommendation? 
 
->![Figure: The Advertising data set. The plot displays sales, in thousands of units, as a function of TV, radio, and newspaper budgets, in thousands of dollars, for 200 different markets. In each plot we show the simple least squares fit of sales to that variable, as described in Linear Regression chapter. In other words, each blue line represents a simple model that can be used to predict sales using TV, radio, and newspaper, respectively.](2-1.png)
+![_Figure: The Advertising data set. The plot displays sales, in thousands of units, as a function of TV, radio, and newspaper budgets, in thousands of dollars, for 200 different markets. In each plot we show the simple least squares fit of sales to that variable, as described in Linear Regression chapter. In other words, each blue line represents a simple model that can be used to predict sales using TV, radio, and newspaper, respectively._](2-1.png)
 
 There are few important questions that we might seek to address:
 
@@ -39,6 +39,24 @@ where $\beta_0$ is intercept and $\beta_1$ is slope. These $\beta_0$ and $\beta_
 When training data is used to estimate $\beta_0$ and $\beta_1$ and to predict future sales $Y$ then a hat symbol is used to denote the estimated value for an unknown parameter or coefficient, or to denote the predicted value of the response. The equation can be written as: $$y = \hat \beta_0 + \hat \beta_1x$$
 
 ## Estimating the coefficients
+In practice $\beta_0$ and $\beta_1$ are unknown. Our goal is to estimate $\hat\beta_0$ and $\hat\beta_1$. Mathematically the equation can be written as $y_i \approx \beta_0 + \beta_1x_i$ for $i = 1,...,n$. In the Advertising example, $x$ could be TV, radio or newspaper; $y$ is sales and $n$ could be different markets. In order to find coefficient estimates as close to actual coefficients, the most common approach is _least squares_.
+
+![_Figure: For the Advertising data, the least squares fit for the regression of sales onto TV is shown. The fit is found by minimizing the sum of squared errors. Each grey line segment represents an error, and the fit makes a compromise by averaging their squares. In this case a linear fit captures the essence of the relationship, although it is somewhat deficient in the left of the plot._](3-1.png)
+
+The prediction of Y on X based on the ith value can be written as: $\hat y_i = \hat \beta_0 + \hat \beta_1x_i$ where $i = 1,...,n$ data points. The difference between the observed response and estimated response can be written as: $e_i = y_i - \hat y_i$. The sum of all errors for all data points can be written as: $$RSS = e_1^2+e_2^2+...+e_n^2$$
+
+The _least squares coefficient estimates_ for simple linear regression can be calculated as: 
+$$\hat \beta_0 = \bar y - \hat \beta_1 \bar x$$ 
+$$\hat \beta_1 = \frac{\sum_{i=1}^n(x_i - \bar x)(y_i - \bar y)}{\sum_{i=1}^n(x_i - \bar x)^2}$$
+
+where $\bar y\equiv \frac{1}{n} \sum_{i=1}^n y_i$ and $\bar x \equiv \frac{1}{n} \sum_{i=1}^n x_i$ are the sample means. $\equiv$ means _as defined as_ or _by definition_.
+
+Based on the above figure, $\hat \beta_0 = 7.03$ which is intercept. This means that when advertising is 0, the number of units sold is around 7000. $\hat \beta_1 = 0.0475$ is called slope and this means that every $1000 spent on TV advertising, the product sale is around 47.5 additional units.  
+
+## Accessing the accuracy of the coefficient estimates  
+
+
+
 
 
 
