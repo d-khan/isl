@@ -57,9 +57,17 @@ Based on the above figure, $\hat \beta_0 = 7.03$ which is intercept. This means 
 
 The true relationship between $X$ and $Y$ is $$Y = f(X) + \epsilon$$ where $f$ is an unknown function and $\epsilon$ is a mean-zero random error term. If we assume that $f$ is linear then the equation becomes: $$Y=\beta_0 + \beta_1X + \epsilon$$
 
-Here $\beta_0$ is the intercept term that is, the expected value of Y when X = 0, and $\beta_1$ is the slope—the average increase in $Y$ associated with a one-unit increase in $X$.
+Here $\beta_0$ is the intercept term that is, the expected value of Y when X = 0, and $\beta_1$ is the slope, the average increase in $Y$ associated with a one-unit increase in $X$.
 
+Note that the true relationship probably may not linear and there may be other variables that cause variation in Y, and there may be measurement errors. That is why an error term is introduced in the equation $Y=\beta_0 + \beta_1X + \epsilon$ which is independent of $X$.
 
+The equation $Y=\beta_0 + \beta_1X + \epsilon$ gives the _population regression line_ which is the best linear approximation to the true relationship between $X$ and $Y$. This is also called _true population regression line_.
 
+The _least squares line_ which is defined as $\hat y = \hat \beta_0 + \hat \beta_1x$ gives close estimation to the _population regression line_.
 
+Based on the figure shown below, 100 random $X$s and corresponding 100 $Y$s are generated from the model $Y = 2+3X+\epsilon$ where $\epsilon$ was generated from a normal distribution with mean zero. The red line shows the true relationship with no error $f(X)=2+3X$, while the blue line is the least squares estimate based on the observed data. In real applications, we have access to a set of observations from which we can compute the least square line but the true population regression line is unobserved. In other words, the true relationship for real data is generally not known. In the right-hand panel of the Figure shown above we have generated ten different data sets from the model given by $Y = 2+3X+\epsilon$ and plotted the corresponding ten least squares lines. Notice that different data sets generated from the same true model result in slightly different least squares lines, but the unobserved population regression line does not change.
+
+![Figure: A simulated data set. Left: The red line represents the true relationship, $f(X)=2+3X$, which is known as the population regression line. The blue line is the least squares line; it is the least squares estimate for $f(X)$ based on the observed data, shown in black. Right: The population regression line is again shown in red, and the least squares line in dark blue. In light blue, ten least squares lines are shown, each computed on the basis of a separate random set of observations. Each least squares line is different, but on average, the least squares lines are quite close to the population regression line.](3-3.png)
+
+With one dataset, why there are two lines and why these are different? This is because the red line represents the entire data set (population) and the blue line represents the part of the data set (sample). Suppose we want to know mean height of every male and female on this planet between the age of 20-30. This is called _population mean_ which is represented by $\mu$. However it is not possible to know the height ($Y$) of every single male and female but we can always estimate mean height ($Y$) based on the available number of males and females ($n$ observations). This is called _sample mean_ which is represented by $\bar y$. The sample mean can be calculated as $\bar y = \frac {\sum_i=1^n y_i}{n}$
 
