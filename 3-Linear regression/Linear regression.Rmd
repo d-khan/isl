@@ -69,5 +69,15 @@ Based on the figure shown below, 100 random $X$s and corresponding 100 $Y$s are 
 
 ![Figure: A simulated data set. Left: The red line represents the true relationship, $f(X)=2+3X$, which is known as the population regression line. The blue line is the least squares line; it is the least squares estimate for $f(X)$ based on the observed data, shown in black. Right: The population regression line is again shown in red, and the least squares line in dark blue. In light blue, ten least squares lines are shown, each computed on the basis of a separate random set of observations. Each least squares line is different, but on average, the least squares lines are quite close to the population regression line.](3-3.png)
 
-With one dataset, why there are two lines and why these are different? This is because the red line represents the entire data set (population) and the blue line represents the part of the data set (sample). Suppose we want to know mean height of every male and female on this planet between the age of 20-30. This is called _population mean_ which is represented by $\mu$. However it is not possible to know the height ($Y$) of every single male and female but we can always estimate mean height ($Y$) based on the available number of males and females ($n$ observations). This is called _sample mean_ which is represented by $\bar y$. The sample mean can be calculated as $\bar y = \frac {\sum_i=1^n y_i}{n}$
+With one dataset, why there are two lines and why these are different? This is because the red line represents the entire data set (population) and the blue line represents the part of the data set (sample). Suppose we want to know mean height of every male and female on this planet between the age of 20-30. This is called _population mean_ which is represented by $\mu$. However it is not possible to know the height ($Y$) of every single male and female but we can always estimate mean height ($Y$) based on the available number of males and females ($n$ observations). This is called _sample mean_ which is represented by $\bar y$. If we estimate population mean $\hat \mu$ by using sample mean $\bar y$ then mathematically the equation can be written as $\hat \mu = \bar y$ where $$\bar y = \frac {1}{n}{\sum_{i=1}^n y_i}$$
+
+If we use sample mean to estimate $\hat \mu$, this estimate is _unbiased_ which means that on average we expect $\hat \mu$ to equal $\mu$.  
+
+__What unbiased means?__ It means that when small number of observations (samples) are used to estimate population mean then $\hat \mu$ might underestimate or overestimate $\mu$. But if we use a huge number of observations (samples) then $\hat \mu$ would exactly equal $\mu$. 
+
+The property of unbiasedness holds for the least squares coefficient estimates as well: if we estimate $\beta_0$ and $\beta_1$ on the basis of a particular data set, then our estimates won’t be exactly equal to $\beta_0$ and $\beta_1$. But if we could average the estimates obtained over a huge number of data sets, then the average of these estimates would be spot on! In fact, we can see from the right hand panel of the Figure shown above that the average of many least squares lines, each estimated from a separate data set, is pretty close to the true population regression line.  
+
+_How accurate is the sample mean $\hat \mu$ as an estimate of $\mu$?  
+
+
 
