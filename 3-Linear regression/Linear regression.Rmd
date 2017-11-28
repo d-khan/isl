@@ -97,5 +97,34 @@ Above text is taken from http://www.statisticshowto.com/probability-and-statisti
 
 For linear regression, the 95% confidence interval for $\beta_0$ is $\hat \beta_0 \pm 2 \times SE(\hat \beta_1)$ and for $\beta_1$ is $\hat \beta_1 \pm 2 \times SE(\hat \beta_1)$
 
-The constant 2 is roundoff which comes from z-values
+The constant (also called z-value) which is 2 (see equation above) at 95% confidence interval is rounded off. The z-value for different confidence intervals are pre-calculated and are shown in the table below.
+
+Confidence level  |     z
+---------------   |   -----
+0.70              |   1.04
+0.75              |   1.15
+0.80              |   1.28
+0.85              |   1.44
+0.90              |   1.645
+0.92              |   1.75
+0.95              |   1.96
+0.96              |   2.05
+0.98              |   2.33
+0.99              |   2.58
+
+The 95% confidence interval for the advertising data for $\beta_0$ is [6.130,7.935] and $\beta_1$ is [0.042,0.053]. The $\beta_0$ is an intercept which means that when X=0 (with no advertising), the sales on averahe will fall somewhere between 6,130 and 7,930 units. Remember that the y-axis unit is in thousands. In terms of $\beta_1$, for each $1,000 increase in TV advertising, there will be an average increase in sales of between 42 and 53 units. Remember the unit of x-axis is in thousands.
+
+Calculating 95% confidence interval based on the equation: $\beta_0$ is $\hat \beta_0 \pm 2 \times SE(\hat \beta_1)$ and for $\beta_1$ is $\hat \beta_1 \pm 2 \times SE(\hat \beta_1)$
+
+Based on the table below, we know $\hat \beta_0$, $\hat \beta_1$ and standard errors:
+
+![Table:Coefficients of the least square model, standard errors, t-staistic and p-value](Table 3-1.png)
+
+According to the above equations:  
+$\beta_0 = 7.0325 \pm 2 \times 0.4578$ gives [6.1169, 7.9481]  
+$\beta_1 = 0.0475 \pm 2 \times 0.0027$ gives [0.0421, 0.0529]  
+
+### Hypothesis test
+
+
 
