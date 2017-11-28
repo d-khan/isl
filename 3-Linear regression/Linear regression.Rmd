@@ -69,7 +69,7 @@ Based on the figure shown below, 100 random $X$s and corresponding 100 $Y$s are 
 
 ![Figure: A simulated data set. Left: The red line represents the true relationship, $f(X)=2+3X$, which is known as the population regression line. The blue line is the least squares line; it is the least squares estimate for $f(X)$ based on the observed data, shown in black. Right: The population regression line is again shown in red, and the least squares line in dark blue. In light blue, ten least squares lines are shown, each computed on the basis of a separate random set of observations. Each least squares line is different, but on average, the least squares lines are quite close to the population regression line.](3-3.png)
 
-With one dataset, why there are two lines and why these are different? This is because the red line represents the entire data set (population) and the blue line represents the part of the data set (sample). Suppose we want to know mean height of every male and female on this planet between the age of 20-30. This is called _population mean_ which is represented by $\mu$. However it is not possible to know the height ($Y$) of every single male and female but we can always estimate mean height ($Y$) based on the available number of males and females ($n$ observations). This is called _sample mean_ which is represented by $\bar y$. If we estimate population mean $\hat \mu$ by using sample mean $\bar y$ then mathematically the equation can be written as $\hat \mu = \bar y$ where $$\bar y = \frac {1}{n}{\sum_{i=1}^n y_i}$$
+With one dataset, why there are two lines and why these are different? This is because the red line represents the entire data set (population) and the blue line represents the part of the data set (sample). Suppose we want to know mean height of every male and female on this planet between the age of 20-30. This is called _population mean_ which is represented by $\mu$. However it is not possible to know the height ($Y$) of every single male and female but we can always estimate mean height ($Y$) based on the available number of males and females ($n$ observations). A reasonable estimate to population mean $\mu$ can be written as $\hat \mu = \bar y$ where $$\bar y = \frac {1}{n}{\sum_{i=1}^n y_i}$$ is the sample mean. In a nutshell, population mean is represented by $\mu$ and sample mean is represented by $\hat \mu$.
 
 If we use sample mean to estimate $\hat \mu$, this estimate is _unbiased_ which means that on average we expect $\hat \mu$ to equal $\mu$.  
 
@@ -77,7 +77,25 @@ __What unbiased means?__ It means that when small number of observations (sample
 
 The property of unbiasedness holds for the least squares coefficient estimates as well: if we estimate $\beta_0$ and $\beta_1$ on the basis of a particular data set, then our estimates won’t be exactly equal to $\beta_0$ and $\beta_1$. But if we could average the estimates obtained over a huge number of data sets, then the average of these estimates would be spot on! In fact, we can see from the right hand panel of the Figure shown above that the average of many least squares lines, each estimated from a separate data set, is pretty close to the true population regression line.  
 
-_How accurate is the sample mean $\hat \mu$ as an estimate of $\mu$?  
+__How accurate is the sample mean $\hat \mu$ as an estimate of $\mu$?__ The answer lies in computing the _standard error of $\hat \mu$, written as SE$(\hat \mu)$. The formula of SE is: $$Var(\hat \mu)=SE(\hat \mu)^2=\frac{\sigma^2}{n}$$ where $\sigma$ is the standard deviation. SE tells the average amount that the estimate $\hat \mu$ differs from the actual value of $\mu$. Similarly we can calculate how close $\hat \beta_0$ and $\hat \beta_1$ are to the true values $\beta_0$ and $\beta_1$. SE of $\hat \beta_0$ and $\hat \beta_1$ can be written as: $$SE(\hat\beta_0)^2 = \sigma^2\Big[\frac{1}{n}+\frac{\bar x^2}{\sum_{i=1}^n(x_i-\bar x^2)}\Big]$$ $$SE(\hat\beta_1)^2 = \sigma^2\Big[\frac{\bar \sigma^2}{\sum_{i=1}^n(x_i-\bar x)^2}\Big]$$
 
+where $\sigma^2 = Var(\epsilon)$. Generally $\sigma^2$ is not known but can be estimated from the data set. The estimation of $\sigma$ is known as the _residual standard error_ and the formula is $$RSE = \sqrt{\dfrac{RSS}{n-2}}$$
 
+### Confidence interval
+
+Standard errors can be used to calculate _confidence intervals_. CI can be defined as "range of values such that with 95% probability, the range will contain the true unknown value of the parameter". CI is defined in terms of lower and upper limits computed from the sample data. In other words, CI tells you how confident you can be that the results from a poll or survey reflect what you would expect to find if it were possible to survey the entire population.
+
+> __95% confidence interval explained__  
+The terms _confidence level_ and _confidence interval_ are often confused. A 95% confidence level means is that if the survey or experiment were repeated, 95 percent of the time the data would match the results from the entire population. Sometimes you just can’t survey everyone because of time or cost (think about how much it would cost to do a telephone survey of over 300 million Americans!). Therefore, you take a sample of the population. Having a 95% confidence level means that you’re almost certain your results are the same as if you had surveyed everyone.  
+A 95% _confidence interval_ gives you a very specific set of numbers for your confidence level. For example, let’s suppose you were surveying a local school to see what the student’s state test scores are. You set a 95% confidence level and find that the 95% confidence interval is (780,900). That means if you repeated this over and over, 95 percent of the time the scores would fall somewhere between 780 and 900.
+
+![Figure: Confidence interval at 95%](ci95.png)
+
+Above text is taken from http://www.statisticshowto.com/probability-and-statistics/confidence-interval/ on Nov 27 2017.
+
+***
+
+For linear regression, the 95% confidence interval for $\beta_0$ is $\hat \beta_0 \pm 2 \times SE(\hat \beta_1)$ and for $\beta_1$ is $\hat \beta_1 \pm 2 \times SE(\hat \beta_1)$
+
+The constant 2 is roundoff which comes from z-values
 
