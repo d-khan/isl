@@ -1,6 +1,6 @@
 ---
 title: "Statistical Learning"
-author: "Danish Khan"
+author: "Dr Danish Khan"
 date: '2017-11-12'
 output:
   html_document:
