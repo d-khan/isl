@@ -169,3 +169,61 @@ The RSE provides an absolute measure of lack of fit of the model to the data and
 The $R^2$ statistic has an interpretational advantage over the RSE, since unlike the RSE, it always lies between 0 and 1. However, it can still be challenging to determine what is a good $R^2$ value, and in general, this will depend on the application. For instance, in certain problems in physics, we may know that the data truly comes from a linear model with a small residual error. In this case, we would expect to see an $R^2$ value that is extremely close to 1, and a substantially smaller $R^2$ value might indicate a serious problem with the experiment in which the data were generated. On the other hand, in typical applications in biology, psychology, marketing, and other domains, the linear model is at best an extremely rough approximation to the data, and residual errors due to other unmeasured factors are often very large. In this setting, we would expect only a very small proportion of the variance in the response to be explained by the predictor, and an $R^2$ value well below 0.1 might be more realistic!
 
 
+## Exercises ##
+
+__8. This question involves the use of simple linear regression on the Auto data set.__
+
+(a) Use the lm() function to perform a simple linear regression with mpg as the response and horsepower as the predictor. Use the summary() function to print the results.
+
+```{r}
+library(ISLR)
+attach(Auto)
+lmodel = lm(mpg~horsepower)
+summary(lmodel)
+
+
+```
+
+* _Is there a relationship between the predictor and the response?_  
+Yes. Based on the null hypothesis $\beta_1$ is not zero.   
+
+* _How strong is the relationship between the predictor and the response?_  
+ffdd  
+
+* Is the relationship between the predictor and the response positive or negative?  
+Negative  
+
+* What is the predicted mpg associated with a horsepower of 98? What are the associated 95 % confidence and prediction intervals?  
+
+__Difference between confidence interval and prediction interval__
+
+(b) Plot the response and the predictor. Use the abline() function to display the least squares regression line.
+
+```{r}
+plot(y=mpg,x=horsepower,pch=20)
+abline(lmodel,lwd=3,col='red')
+```
+
+
+* Diagnostic plot
+* residuals plot
+* rstudent()
+* hatvalues()
+
+
+__11. In this problem we will investigate the t-statistic for the null hypoth- esis H0 : β = 0 in simple linear regression without an intercept. To begin, we generate a predictor x and a response y as follows.__
+
+* __set.seed(1)__
+* __x=rnorm(100)__
+* __y=2*x+rnorm(100)__
+
+(a) Perform a simple linear regression of y onto x, without an intercept. Report the coefficient estimate $\hat beta$, the standard error of this coefficient estimate, and the t-statistic and p-value associated with the nul
+l hypothesis $H_0$ : $\beta = 0$. Comment on these results. (You can perform regression without an intercept using the command lm(y∼x+0).)
+
+
+
+
+
+
+
+
