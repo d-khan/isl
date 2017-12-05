@@ -211,7 +211,7 @@ abline(lmodel,lwd=3,col='red')
 * hatvalues()
 
 
-__11. In this problem we will investigate the t-statistic for the null hypoth- esis H0 : β = 0 in simple linear regression without an intercept. To begin, we generate a predictor x and a response y as follows.__
+__11. In this problem we will investigate the t-statistic for the null hypothesis $H_0$ : $\beta = 0$ in simple linear regression without an intercept. To begin, we generate a predictor x and a response y as follows.__
 
 * __set.seed(1)__
 * __x=rnorm(100)__
