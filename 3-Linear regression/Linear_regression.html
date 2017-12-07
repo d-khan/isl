@@ -39,7 +39,7 @@ if (window.hljs) {
   hljs.configure({languages: []});
   hljs.initHighlightingOnLoad();
   if (document.readyState && document.readyState === "complete") {
-    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+    window.setTimeout(function() { hljs.initHighlightingOnLoad(); }, 0);
   }
 }
 </script>
@@ -488,7 +488,7 @@ abline(lmodel,lwd=3,col='red')</code></pre>
 <li>rstudent()</li>
 <li>hatvalues()</li>
 </ul>
-<p><strong>11. In this problem we will investigate the t-statistic for the null hypoth- esis H0 : β = 0 in simple linear regression without an intercept. To begin, we generate a predictor x and a response y as follows.</strong></p>
+<p><strong>11. In this problem we will investigate the t-statistic for the null hypothesis <span class="math inline">\(H_0\)</span> : <span class="math inline">\(\beta = 0\)</span> in simple linear regression without an intercept. To begin, we generate a predictor x and a response y as follows.</strong></p>
 <ul>
 <li><strong>set.seed(1)</strong></li>
 <li><strong>x=rnorm(100)</strong></li>
