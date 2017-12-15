@@ -194,19 +194,75 @@ In order the determine whether there is a relationship between the response and 
 In other words all the coefficients corresponds to the predictor should be zero in order to confirm null hypothesis. On the contrary, the alternative hypothesis $H_a$ says that atleast one coefficient is non-zero.
 
 ###F-statistic
-The hypothesis test on multiple regression is done using _F-statistic_. However _t_statistic_ is used to confirm hypothesis test on linear regression. When _F-statistic_ is close to 1 then we can conclude that $H_0$ is true (i.e. no relationship between the response and the predictors). When _F-statistic_ is greater than 1 then we can conclude that $H_a$ is true (i.e. atleast one predictor has a relationship with the response).
+The hypothesis test on multiple regression is done using _F-statistic_ and _t-statistic_ is used to confirm hypothesis test on linear regression. When _F-statistic_ is close to 1 then we can conclude that $H_0$ is true (i.e. no relationship between the response and the predictors). When _F-statistic_ is greater than 1 then we can conclude that $H_a$ is true (i.e. atleast one predictor has a relationship with the response).
 
 ![](T3-6.png)
 
-The F-statistic of 570 from the table above shows that there is a strong relationship that atleast one of the advertising media is related to sales.
+The F-statistic of 570 from the table above shows that there is a strong relationship that atleast one of the advertising media is related to sales. Since this is far greater than 1, it provides compelling evidence that at least one of the advertising media must be related to sales. The question is how far should _F-statistic_ from 1 to reject null hypothesis OR similarly close to 1 to accept null hypothesis; where null hypothesis is defined as _no relationship between the response and the predictors_. The answer lies on the number of samples (observations) _n_ and predictors _p_.
+
+* When _n_ is large, a F-statistic that is just a little larger than 1 might still provide evidence against $H_0$. 
+* When _n_ is small, a larger F-statistic is needed to reject $H_0$. 
+
+Diagram goes here
+
+####_p-value_ & F-statistic
+If _p-values_ are available for each individual predictors and if any one _p-values_ is small then it can be concluded that at least one of the predictors is related to the response. However this conclusion is incorrect when the number of predictors _p_ is large. When _p_ is large, for example _p_ = 100. Lets say that if a _p_ value associated with one variable is below 0.05, we may probably think that there is a relationship between the predictor and the response and we may incorrectly reject $H_0$. However F-statistic does not suffer from this problem and omits the single variable from the model and adjust the number of predictors.
+
+###Limitation of F-statistic
+The approach of using an F-statistic to test for any association between the predictors and the response works when p is relatively small, and certainly small compared to n. However, sometimes we have a very large number of variables. If p > n then there are more coefficients to estimate than observations from which to estimate them. In this case we cannot even fit the multiple linear regression model using least squares, so the F-statistic cannot be used. When p is large, some of the approaches discussed in the next section, such as forward selection, can be used.
+
+Need to write about F-statistic from external website
+
+##Which predictors are related to the response
+When number of predictors are large, it is possible that all the predictors are associated with response however the question is how much association is contributed significantly towards the response. Often times, the response is only related to a subset of the predictors. The task of determining which predictors are associated with the response, in order to fit a single model involving only those predictors, is referred to as _variable selection._ Lets say if _p_=2 then the total number of model combination is 4 ($2^2=4$). This means that the single best model will be selected out of 4 models. The combination will be:
+
+Predictor X_1   |   Predictor X_2
+-------------   |   -------------
+No predictor    |   No predictor 
+Predictor X_1   |   No predictor
+No predictor    |   Predictor X_2
+Predictor X_1   |   Predictor X_2
+
+One way of finding the best model is plot all the models and compare them. However this approach is vigorous and is not feasible when p is large. With large number of predictors, there are three approaches to handle such problem:
+
+###Forward selection
+A model begins with no variables but just an intercept. In the first step we add variable one at a time to the null model and select the variable which gives the lowest RSS. In the second step, we add variable one at a time to the one-variable model and pick the lowest RSS. This approach continues until some stopping rule is defined.
+
+###Backward selection
+In backward selection, start with all variables in the model and remove the variable with the largest p-value, the variable that is the least statistically significant. In the second step, remove the variable from the model which gives the largest p-value. For instance, we may stop when all remaining variables have a p-value below some threshold. Backward selection cannot be used if p > n.
+
+###Mixed selection
+This is a combination of forward and backward selection. We start with no variables in the model, and as with forward selection, we add the variable that provides the best fit. We continue to add variables one-by-one. The p-values for variables can become larger as new predictors are added to the model. Hence, if at any point the p-value for one of the variables in the model rises above a certain threshold, then we remove that variable from the model. We continue to perform these forward and backward steps until all variables in the model have a sufficiently low p-value, and all variables outside the model would have a large p-value if added to the model.
+
+##Model fit
+The two most common numerical measures of model fit are the RSE and $R^2$. These two terms already discussed in Linear Regression. An $R^2$ value close to 1 indicates the fitness of the selected model.
+
+Predictors            |   $R^2$     |   RSE
+----------            |   -----     |   ---
+TV                    |   0.61      |   3.26
+TV and Radio          |   0.8971    |   1.681
+TV, Radio & Newspaper |   0.8972    |   1.686
+
+The above table shows that the inclusion of newspaper predictor has no significant improve on the $R^2$ value and this shows that the newspaper predictor is weakly associated with the response. We can further confirm the assosiciation by looking into the _p-value_. The _p-value_ (0.8599) of newspaper predictor confirms the week relationship between the predictor and the response. It turns out that $R^2$ will always increase when more variables are added to the model, even if those variables are only weakly associated with the response. Inclusion of newspaper predictor does not increase the $R^2$ significantly and hence this predictor can be dropped from the model.
+
+The above table further shows that the RSE increases when newspaper predictor is included from 1.681 to 1.686. On the contrary, $R^2$ slightly increases in presence of the newspaper predictor. In general RSE is defined as: $$RSE = \sqrt{\dfrac{RSS}{n-p-1}}$$
+
+The models with more variables can have higher RSE if the decrease in RSS is small relative to the increase in p.
+
+##Predictions
+Once we have fit the multiple regression model, it is straightforward to apply the following equation
+$$\hat y=\hat\beta_0+\hat\beta_1x_1+\hat\beta_2x_2+...+\hat\beta_px_p$$
+in order to predict the response Y on the basis of a set of values for the predictors $X_1, X_2,..., X_p$. However, there are three sorts of uncertainty associated with this prediction.
+
+1. The coefficient estimates $\hat\beta_0,\hat\beta_1,...,\hat\beta_p$ are estimates for $\beta_0,\beta_1,...,\beta_p$. That is, the least squares plane
+$$\hat Y = \hat \beta_0 + \hat \beta_1X_1 + ... + \hat \beta_pX_p$$ is only an estimate for the true population regression plane $$ f(X) = \beta_0 + \beta_1X + ... + \beta_pX_p$$
 
 
 
 
 
 
-
-## Exercises ##
+# Exercises #
 
 __8. This question involves the use of simple linear regression on the Auto data set.__
 
