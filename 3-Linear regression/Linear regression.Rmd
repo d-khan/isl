@@ -29,7 +29,7 @@ There are few important questions that we might seek to address:
 * Is the relationship linear?  
 * Is there synergy among the advertising media?  
 
-## Simple linear regression  
+# Simple linear regression  
 Simple linear regression is a very straightforward approach for predicting a quantitative response $Y$ on the basis of a single predictor variable $X$. The relationship can be written as: $$Y \approx \beta_0 + \beta_1X$$.
 
 In this advertising example, $Y$ represent sales and $X$ represents TV or radio or newspaper advertising. Mathematically the equation can be written as: $$sales \approx \beta_0 + \beta_1 \times TV$$
@@ -168,8 +168,101 @@ The RSE provides an absolute measure of lack of fit of the model to the data and
 
 The $R^2$ statistic has an interpretational advantage over the RSE, since unlike the RSE, it always lies between 0 and 1. However, it can still be challenging to determine what is a good $R^2$ value, and in general, this will depend on the application. For instance, in certain problems in physics, we may know that the data truly comes from a linear model with a small residual error. In this case, we would expect to see an $R^2$ value that is extremely close to 1, and a substantially smaller $R^2$ value might indicate a serious problem with the experiment in which the data were generated. On the other hand, in typical applications in biology, psychology, marketing, and other domains, the linear model is at best an extremely rough approximation to the data, and residual errors due to other unmeasured factors are often very large. In this setting, we would expect only a very small proportion of the variance in the response to be explained by the predictor, and an $R^2$ value well below 0.1 might be more realistic!
 
+# Multiple linear regression
+In multiple linear regression there are more than one predictor. For example in the Advertising data, there are three predictors such as TV, radio and newspaper. We could simply run linear regression equation for each predictor and understand how each predictor responds to sales. Looking into the table below, increase in radio advertising budget by \$1000, an average increase in sales by 203 units. Similarly increase in newspaper advertising budget by \$1000, an average increase in sales by 55 units. 
 
-## Exercises ##
+![Separate linear regression of sales on radio and newspaper](T3-3.png)
+
+__Problem with linear regression__  
+If three separate linear regression equations are used to predict response (as mentioned above), the results may be misleading. For example, each of the three regression equations ignores the other two media in forming estimates for the regression coefficients. If the media budgets are correlated with each other in the 200 markets that constitute our data set, then this can lead to very misleading estimates of the individual media effects on sales. A better approach to incorporate multiple predictors. The multiple regression equation for $p$ distinct predictors can be written as:
+$$ Y = \beta_0+\beta_1X_1+\beta_2X_2+...+\beta_pX_p+\epsilon$$
+where $X_j$ represents the $j$th predictor and $\beta_j$ quantifies the association between that variable and the response. Based on the advertising data the equation can be written as:
+$$ sales = \beta_0 + \beta_1TV + \beta_2radio + \beta_3newspaper + \epsilon $$ where regression coefficients $\beta_0, \beta_1,...,\beta_p$ are unknown and must be estimated. One of the approaches to estimate coefficients is least squares approach (as we did in the linear regression). Predicting response using the estimated coefficients can be written as: 
+$$\hat y = \hat\beta_0 + \hat\beta_1x_1 + \hat\beta_2x_2+...+\hat\beta_px_p$$
+
+These coefficients can be calculated in R.
+
+Table below displays the multiple regression coefficient estimates when TV, radio, and newspaper advertising budgets are used to predict product sales using the Advertising data. As compared to coefficient estimate of multiple linear regression with coefficient estimate of linear regression, there is a significant difference in the coefficients of TV, radio and newspaper. For \$1,000 increase in budget for TV advertising, the average sale is about 47.5 units (linear regression) and 46 units (multiple regression); for the same increase in budget for radio advertising, the average sale is about 203 units (linear regression) and 189 units (multiple regression). However by increasing \$1,000 in newspaper advertising budget, the average increased on sale is about 55 units under simple linear regression. On the contrary, multiple linear regression shows that there is no relationship between sales and newspaper. In addition, the corresponding newspaper coefficient is close to zero and so t-statistic and a higher p-value of 0.85.
+
+![For the Advertising data, least squares coefficient estimates of the multiple linear regression of number of units sold on radio, TV, and newspaper advertising budgets.](T3-4.png)
+
+__Coorelation matrix__
+
+##Relationship between the response and predictors  
+In order the determine whether there is a relationship between the response and the predictors, null hypothesis can be used (similar to linear regression). The null hypothesis $H_0$ of multiple regression equation is: $$H_0: \beta_1 = \beta_2 = ... = \beta_p = 0$$ 
+
+In other words all the coefficients corresponds to the predictor should be zero in order to confirm null hypothesis. On the contrary, the alternative hypothesis $H_a$ says that atleast one coefficient is non-zero.
+
+###F-statistic
+The hypothesis test on multiple regression is done using _F-statistic_ and _t-statistic_ is used to confirm hypothesis test on linear regression. When _F-statistic_ is close to 1 then we can conclude that $H_0$ is true (i.e. no relationship between the response and the predictors). When _F-statistic_ is greater than 1 then we can conclude that $H_a$ is true (i.e. atleast one predictor has a relationship with the response).
+
+![](T3-6.png)
+
+The F-statistic of 570 from the table above shows that there is a strong relationship that atleast one of the advertising media is related to sales. Since this is far greater than 1, it provides compelling evidence that at least one of the advertising media must be related to sales. The question is how far should _F-statistic_ from 1 to reject null hypothesis OR similarly close to 1 to accept null hypothesis; where null hypothesis is defined as _no relationship between the response and the predictors_. The answer lies on the number of samples (observations) _n_ and predictors _p_.
+
+* When _n_ is large, a F-statistic that is just a little larger than 1 might still provide evidence against $H_0$. 
+* When _n_ is small, a larger F-statistic is needed to reject $H_0$. 
+
+Diagram goes here
+
+####_p-value_ & F-statistic
+If _p-values_ are available for each individual predictors and if any one _p-values_ is small then it can be concluded that at least one of the predictors is related to the response. However this conclusion is incorrect when the number of predictors _p_ is large. When _p_ is large, for example _p_ = 100. Lets say that if a _p_ value associated with one variable is below 0.05, we may probably think that there is a relationship between the predictor and the response and we may incorrectly reject $H_0$. However F-statistic does not suffer from this problem and omits the single variable from the model and adjust the number of predictors.
+
+###Limitation of F-statistic
+The approach of using an F-statistic to test for any association between the predictors and the response works when p is relatively small, and certainly small compared to n. However, sometimes we have a very large number of variables. If p > n then there are more coefficients to estimate than observations from which to estimate them. In this case we cannot even fit the multiple linear regression model using least squares, so the F-statistic cannot be used. When p is large, some of the approaches discussed in the next section, such as forward selection, can be used.
+
+Need to write about F-statistic from external website
+
+##Which predictors are related to the response
+When number of predictors are large, it is possible that all the predictors are associated with response however the question is how much association is contributed significantly towards the response. Often times, the response is only related to a subset of the predictors. The task of determining which predictors are associated with the response, in order to fit a single model involving only those predictors, is referred to as _variable selection._ Lets say if _p_=2 then the total number of model combination is 4 ($2^2=4$). This means that the single best model will be selected out of 4 models. The combination will be:
+
+Predictor X_1   |   Predictor X_2
+-------------   |   -------------
+No predictor    |   No predictor 
+Predictor X_1   |   No predictor
+No predictor    |   Predictor X_2
+Predictor X_1   |   Predictor X_2
+
+One way of finding the best model is plot all the models and compare them. However this approach is vigorous and is not feasible when p is large. With large number of predictors, there are three approaches to handle such problem:
+
+###Forward selection
+A model begins with no variables but just an intercept. In the first step we add variable one at a time to the null model and select the variable which gives the lowest RSS. In the second step, we add variable one at a time to the one-variable model and pick the lowest RSS. This approach continues until some stopping rule is defined.
+
+###Backward selection
+In backward selection, start with all variables in the model and remove the variable with the largest p-value, the variable that is the least statistically significant. In the second step, remove the variable from the model which gives the largest p-value. For instance, we may stop when all remaining variables have a p-value below some threshold. Backward selection cannot be used if p > n.
+
+###Mixed selection
+This is a combination of forward and backward selection. We start with no variables in the model, and as with forward selection, we add the variable that provides the best fit. We continue to add variables one-by-one. The p-values for variables can become larger as new predictors are added to the model. Hence, if at any point the p-value for one of the variables in the model rises above a certain threshold, then we remove that variable from the model. We continue to perform these forward and backward steps until all variables in the model have a sufficiently low p-value, and all variables outside the model would have a large p-value if added to the model.
+
+##Model fit
+The two most common numerical measures of model fit are the RSE and $R^2$. These two terms already discussed in Linear Regression. An $R^2$ value close to 1 indicates the fitness of the selected model.
+
+Predictors            |   $R^2$     |   RSE
+----------            |   -----     |   ---
+TV                    |   0.61      |   3.26
+TV and Radio          |   0.8971    |   1.681
+TV, Radio & Newspaper |   0.8972    |   1.686
+
+The above table shows that the inclusion of newspaper predictor has no significant improve on the $R^2$ value and this shows that the newspaper predictor is weakly associated with the response. We can further confirm the assosiciation by looking into the _p-value_. The _p-value_ (0.8599) of newspaper predictor confirms the week relationship between the predictor and the response. It turns out that $R^2$ will always increase when more variables are added to the model, even if those variables are only weakly associated with the response. Inclusion of newspaper predictor does not increase the $R^2$ significantly and hence this predictor can be dropped from the model.
+
+The above table further shows that the RSE increases when newspaper predictor is included from 1.681 to 1.686. On the contrary, $R^2$ slightly increases in presence of the newspaper predictor. In general RSE is defined as: $$RSE = \sqrt{\dfrac{RSS}{n-p-1}}$$
+
+The models with more variables can have higher RSE if the decrease in RSS is small relative to the increase in p.
+
+##Predictions
+Once we have fit the multiple regression model, it is straightforward to apply the following equation
+$$\hat y=\hat\beta_0+\hat\beta_1x_1+\hat\beta_2x_2+...+\hat\beta_px_p$$
+in order to predict the response Y on the basis of a set of values for the predictors $X_1, X_2,..., X_p$. However, there are three sorts of uncertainty associated with this prediction.
+
+1. The coefficient estimates $\hat\beta_0,\hat\beta_1,...,\hat\beta_p$ are estimates for $\beta_0,\beta_1,...,\beta_p$. That is, the least squares plane
+$$\hat Y = \hat \beta_0 + \hat \beta_1X_1 + ... + \hat \beta_pX_p$$ is only an estimate for the true population regression plane $$ f(X) = \beta_0 + \beta_1X + ... + \beta_pX_p$$
+
+
+
+
+
+
+# Exercises #
 
 __8. This question involves the use of simple linear regression on the Auto data set.__
 
