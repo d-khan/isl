@@ -9,7 +9,7 @@ output:
     fig_caption: true
     toc: true
     toc_float: true
-    toc_depth: 4
+    toc_depth: 2
     theme: journal
 ---
 
@@ -314,12 +314,39 @@ Linear regression model assumes that the relationship between the response and p
 
 The above figure shows that the relationship between mpg and horsepower is non-linear and the polynomial regression can be used to model the non-linearity in the dataset.
 $$mpg = \beta_0 + \beta_1 horsepower + \beta_2 horsepower^2 + \epsilon$$
-The above is a quadratic equation and the result in the above figure shows that the blue curve has a better fit as compared to the orange fit. How about if we increase the power of horsepower? Are we going to get a better fit?  
+The above is a quadratic equation and the result in the above figure shows that the blue curve has a better fit as compared to the orange fit. How about if we increase the power of horsepower? Are we going to get a better fit? The answer lies in analyzing plot of horsepower with different degrees vs mpg. The below plot shows that the model becomes wiggly when adding polynomials. Furthermore the $R^2$ of the quadratic fit is 0.688 compared to 0.606 for the linear fit. The $R^2$ value of higher degree polynomials does not increase significantly. The result shows that the higher degree polynomials (greater than degree 2) does not fit well to the data and has no benefit in doing so. 
 
+```{r}
+library(ISLR)
+attach(Auto)
+minmax = range(horsepower)
+x = seq(minmax[1],minmax[2],len=100)
+model1 = lm(mpg~horsepower)
+model2 = lm(mpg~poly(horsepower,2))
+model4 = lm(mpg~poly(horsepower,4))
+model5 = lm(mpg~poly(horsepower,5))
+model6 = lm(mpg~poly(horsepower,6))
+y_model1 = predict(model1, newdata = data.frame(horsepower=x))
+y_model2 = predict(model2, newdata = data.frame(horsepower=x))
+y_model4 = predict(model4, newdata = data.frame(horsepower=x))
+y_model5 = predict(model5, newdata = data.frame(horsepower=x))
+y_model6 = predict(model6, newdata = data.frame(horsepower=x))
+plot(horsepower,mpg,pch = 16,col='grey')
+lines(x,y_model1,lwd=2)
+lines(x,y_model2,col='red',lwd=2)
+lines(x,y_model4,col='blue',lwd=2)
+lines(x,y_model5,col='green',lwd=2)
+lines(x,y_model6,col='orange',lwd=2)
+legend('topright',legend=c('Linear','Degree 2','Degree 4','Degree 5','Degree 6'),col=c('black','red','blue','green','orange'),cex=0.8,lty=1,lwd=2)
+model = c('Linear','Degree 2','Degree 4','Degree 5','Degree 6')
+R_squared = c(summary(model1)$r.squared,summary(model2)$r.squared,summary(model4)$r.squared,summary(model5)$r.squared,summary(model6)$r.squared)
+data.frame(model,R_squared)
+```
 
 
 
 ## Potential problems
+eiwufbdwuief wef[ wefp]
 
 # Comparison of linear regression with K-nearest neighbors
 
