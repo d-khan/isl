@@ -112,7 +112,7 @@ Confidence level  |     z
 0.98              |   2.33
 0.99              |   2.58
 
-The 95% confidence interval for the advertising data for $\beta_0$ is [6.130,7.935] and $\beta_1$ is [0.042,0.053]. The $\beta_0$ is an intercept which means that when X=0 (with no advertising), the sales on averahe will fall somewhere between 6,130 and 7,930 units. Remember that the y-axis unit is in thousands. In terms of $\beta_1$, for each $1,000 increase in TV advertising, there will be an average increase in sales of between 42 and 53 units. Remember the unit of x-axis is in thousands.
+The 95% confidence interval for the advertising data for $\beta_0$ is [6.130,7.935] and $\beta_1$ is [0.042,0.053]. The $\beta_0$ is an intercept which means that when X=0 (with no advertising), the sales on average will fall somewhere between 6,130 and 7,930 units. Remember that the y-axis unit is in thousands. In terms of $\beta_1$, for each $1,000 increase in TV advertising, there will be an average increase in sales of between 42 and 53 units. Remember the unit of x-axis is in thousands.
 
 Calculating 95% confidence interval based on the equation: $\beta_0$ is $\hat \beta_0 \pm 2 \times SE(\hat \beta_1)$ and for $\beta_1$ is $\hat \beta_1 \pm 2 \times SE(\hat \beta_1)$
 
@@ -168,6 +168,17 @@ The RSE provides an absolute measure of lack of fit of the model to the data and
 
 The $R^2$ statistic has an interpretational advantage over the RSE, since unlike the RSE, it always lies between 0 and 1. However, it can still be challenging to determine what is a good $R^2$ value, and in general, this will depend on the application. For instance, in certain problems in physics, we may know that the data truly comes from a linear model with a small residual error. In this case, we would expect to see an $R^2$ value that is extremely close to 1, and a substantially smaller $R^2$ value might indicate a serious problem with the experiment in which the data were generated. On the other hand, in typical applications in biology, psychology, marketing, and other domains, the linear model is at best an extremely rough approximation to the data, and residual errors due to other unmeasured factors are often very large. In this setting, we would expect only a very small proportion of the variance in the response to be explained by the predictor, and an $R^2$ value well below 0.1 might be more realistic!
 
+## Reproducing linear regression results
+
+```{r,cache=TRUE}
+ad = read.csv('~/Desktop/isl/Data sets/Advertising.csv')
+attach(ad)
+lr = lm(sales~TV,data=ad)
+summary(lr)
+confint(lr) #confidence interval is set at default 95%
+```
+From the above results, $\beta_0$ (intercept) is 7.03, $\beta_1$ (slope) is 0.04, $RSE$ is 3.25, $R^2$ is 0.611, p-value is close to 0. The confidence interval at 95% is for the intercept is (6.12 and 7.93) and for the slope is (0.042 and 0.052). The interpretation of these results have already been discussed above.
+
 # Multiple linear regression
 In multiple linear regression there are more than one predictor. For example in the Advertising data, there are three predictors such as TV, radio and newspaper. We could simply run linear regression equation for each predictor and understand how each predictor responds to sales. Looking into the table below, increase in radio advertising budget by \$1000, an average increase in sales by 203 units. Similarly increase in newspaper advertising budget by \$1000, an average increase in sales by 55 units. 
 
@@ -216,12 +227,12 @@ Need to write about F-statistic from external website
 ##Which predictors are related to the response
 When number of predictors are large, it is possible that all the predictors are associated with response however the question is how much association is contributed significantly towards the response. Often times, the response is only related to a subset of the predictors. The task of determining which predictors are associated with the response, in order to fit a single model involving only those predictors, is referred to as _variable selection._ Lets say if _p_=2 then the total number of model combination is 4 ($2^2=4$). This means that the single best model will be selected out of 4 models. The combination will be:
 
-Predictor X_1   |   Predictor X_2
--------------   |   -------------
-No predictor    |   No predictor 
-Predictor X_1   |   No predictor
-No predictor    |   Predictor X_2
-Predictor X_1   |   Predictor X_2
+Predictor $X_1$   |   Predictor $X_2$
+---------------   |   -------------
+No predictor      |   No predictor 
+Predictor $X_1$   |   No predictor
+No predictor      |   Predictor $X_2$
+Predictor $X_1$   |   Predictor $X_2$
 
 One way of finding the best model is plot all the models and compare them. However this approach is vigorous and is not feasible when p is large. With large number of predictors, there are three approaches to handle such problem:
 
@@ -243,7 +254,7 @@ TV                    |   0.61      |   3.26
 TV and Radio          |   0.8971    |   1.681
 TV, Radio & Newspaper |   0.8972    |   1.686
 
-The above table shows that the inclusion of newspaper predictor has no significant improve on the $R^2$ value and this shows that the newspaper predictor is weakly associated with the response. We can further confirm the assosiciation by looking into the _p-value_. The _p-value_ (0.8599) of newspaper predictor confirms the week relationship between the predictor and the response. It turns out that $R^2$ will always increase when more variables are added to the model, even if those variables are only weakly associated with the response. Inclusion of newspaper predictor does not increase the $R^2$ significantly and hence this predictor can be dropped from the model.
+The above table shows that the inclusion of newspaper predictor has no significant improve on the $R^2$ value and this shows that the newspaper predictor is weakly associated with the response. We can further confirm the assosiciation by looking into the _p-value_. The _p-value_ (0.8599) of newspaper predictor confirms the weak relationship between the predictor and the response. It turns out that $R^2$ will always increase when more variables are added to the model, even if those variables are only weakly associated with the response. Inclusion of newspaper predictor does not increase the $R^2$ significantly and hence this predictor can be dropped from the model.
 
 The above table further shows that the RSE increases when newspaper predictor is included from 1.681 to 1.686. On the contrary, $R^2$ slightly increases in presence of the newspaper predictor. In general RSE is defined as: $$RSE = \sqrt{\dfrac{RSS}{n-p-1}}$$
 
@@ -260,17 +271,57 @@ The inaccuracy in the coefficient estimates is related to the _reducible error_.
 
 2. In practice assuming a linear model for $f(X)$ is almost always an approximation of reality, so there is an additional source of potentially reducible error which we call model bias. So when we use a linear model, we are in fact estimating the best linear approximation to the true surface. However, here we will ignore this discrepancy, and operate as if the linear model were correct.  
 
-3. Even if we knew $f(X)$ and even if we knew the true values for $\beta_0$, $\beta_1$,...,$\beta_p$—the response value cannot be predicted perfectly because of the random error $\epsilon$ in the model which is called _irreducible error_. How much will Y vary from $\hatY$? We use prediction intervals to answer this question. Prediction intervals are always wider than confidence intervals, because they incorporate both the error in the estimate for f(X) (the reducible error) and the uncertainty as to how much an individual point will differ from the population regression plane (the irreducible error).
+3. Even if we knew $f(X)$ and even if we knew the true values for $\beta_0$, $\beta_1$,...,$\beta_p$—the response value cannot be predicted perfectly because of the random error $\epsilon$ in the model which is called _irreducible error_. How much will Y vary from $\hat Y$? We use prediction intervals to answer this question. Prediction intervals are always wider than confidence intervals, because they incorporate both the error in the estimate for f(X) (the reducible error) and the uncertainty as to how much an individual point will differ from the population regression plane (the irreducible error).
 
 We use a confidence interval to quantify the uncertainty surrounding the average sales over a large number of cities. For example, given that \$100,000 is spent on TV advertising and \$20,000 is spent on radio advertising in each city, the 95% confidence interval is [10,985, 11,528]. We interpret this to mean that 95% of intervals of this form will contain the true value of $f(X)$. On the other hand, a prediction interval can be used to quantify the uncertainty surrounding sales for a particular city. Given that \$100,000 is spent on TV advertising and \$20,000 is spent on radio advertising in that city the 95% prediction interval is [7,930, 14,580]. We interpret this to mean that 95% of intervals of this form will contain the true value of $Y$ for this city. Note that both intervals are centered at 11,256, but that the prediction interval is substantially wider than the confidence interval, reflecting the increased uncertainty about sales for a given city in comparison to the average sales over many locations.
 
 > The prediction interval is always wider than the confidence interval due to added uncertanities such as reducible and irreducible errors. The PI involved in predicting a single response whereas CI is used when the response is average.
 
+__How prediction intervals are calculated??__
+
+# Other considerations in the regression model
+
+## Qualitative predictors  
+
+## Extensions of the linear model
+The standard linear regression model have two highly restrictive assumptions, i.e the relationship between the predictors and response are _additive_ and _linear_.
+
+### Remove the additive assumption
+In our previous analysis of the Advertising data, we concluded that both TV and radio seem to be associated with sales. The linear models that formed the basis for this conclusion assumed that the effect on sales of increasing one advertising medium is independent of the amount spent on the other media. For example, the linear model states that the average effect on sales of a one-unit increase in TV is always $\beta_1$, regardless of the amount spent on radio.
+
+However, this simple model may be incorrect. Suppose that spending money on radio advertising actually increases the effectiveness of TV advertising, so that the slope term for TV should increase as radio increases. In this situation, given a fixed budget of $100,000, spending half on radio and half on TV may increase sales more than allocating the entire amount to either TV or to radio. In marketing, this is known as a __synergy__ effect, and in statistics it is referred to as an __interaction__ effect. Considered the standard multiple regression model with two variables:
+$$ Y = \beta_0 + \beta_1X_1 + \beta_2X_2 + \epsilon$$
+According to this model, if we increase $X_1$ by one unit, then $Y$ will increase by an average of $\beta_1$ units. Notice that the presence of $X_2$ does not alter this statement that is, regardless of the value of $X_2$, a one-unit increase in $X_1$ will lead to a $\beta_1$ unit increase in $Y$ . One way of extending this model to allow for interaction effects is to include a third predictor, called an __interaction term__, which is constructed by computing the product of $X_1$ and $X_2$. The equation becomes:
+
+$$ Y = \beta_0 + \beta_1X_1 + \beta_2X_2 + \beta_3X_1X_2 + \epsilon$$
+
+```{r}
+attach(ad)
+t1 = lm(sales~TV+radio+(TV*radio))
+t2 = lm(sales~TV+radio)
+summary(t1) #with interaction
+summary(t2) #without interaction
+```
+
+The model that includes the interaction term is superior to the model that contains only main effects. The __main effect__ is defined as the model which has no interaction term. The $R^2$ for the model with no interaction term is 0.89 and with interaction term is 0.96.
+
+In this example, the p-values associated with TV, radio, and the interaction term all are statistically significant, and so it is obvious that all three variables should be included in the model. However, it is sometimes the case that an interaction term has a very small p-value, but the associated main effects (in this case, TV and radio) do not. The __hierarchical principle__ states that __if we include an interaction in a model, we should also include the main effects, even if the p-values associated with their coefficients are not significant__. In other words, if the interaction between $X_1$ and $X_2$ seems important, then we should include both $X_1$ and $X_2$ in the model even if their coefficient estimates have large p-values. The rationale for this principle is that if $X_1 × X_2$ is related to the response, then whether or not the coefficients of $X_1$ or $X_2$ are exactly zero is of little interest. Also $X_1 × X_2$ is typically correlated with $X_1$ and $X_2$, and so leaving them out tends to alter the meaning of the interaction.
+
+### Non-linear relationships
+Linear regression model assumes that the relationship between the response and predictors are linear. What about if the relationship is non-linear. Linear regression model can be extended to incorporate non-linearity in the data by using _polynomial regression_.
+
+![Figure: The Auto data set. For a number of cars, mpg and horsepower are shown. The linear regression fit is shown in orange. The linear regression fit for a model that includes horsepower2 is shown as a blue curve. The linear regression fit for a model that includes all polynomials of horsepower up to fifth-degree is shown in green.](3-8.png)
+
+The above figure shows that the relationship between mpg and horsepower is non-linear and the polynomial regression can be used to model the non-linearity in the dataset.
+$$mpg = \beta_0 + \beta_1 horsepower + \beta_2 horsepower^2 + \epsilon$$
+The above is a quadratic equation and the result in the above figure shows that the blue curve has a better fit as compared to the orange fit. How about if we increase the power of horsepower? Are we going to get a better fit?  
+
+
+
+
+## Potential problems
 
 # Comparison of linear regression with K-nearest neighbors
-
-
-
 
 
 
@@ -322,8 +373,7 @@ __11. In this problem we will investigate the t-statistic for the null hypothesi
 * __x=rnorm(100)__
 * __y=2*x+rnorm(100)__
 
-(a) Perform a simple linear regression of y onto x, without an intercept. Report the coefficient estimate $\hat beta$, the standard error of this coefficient estimate, and the t-statistic and p-value associated with the nul
-l hypothesis $H_0$ : $\beta = 0$. Comment on these results. (You can perform regression without an intercept using the command lm(y∼x+0).)
+(a) Perform a simple linear regression of y onto x, without an intercept. Report the coefficient estimate $\hat beta$, the standard error of this coefficient estimate, and the t-statistic and p-value associated with the null hypothesis $H_0$ : $\beta = 0$. Comment on these results. (You can perform regression without an intercept using the command lm(y∼x+0).)
 
 
 
