@@ -39,7 +39,7 @@ if (window.hljs) {
   hljs.configure({languages: []});
   hljs.initHighlightingOnLoad();
   if (document.readyState && document.readyState === "complete") {
-    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+    window.setTimeout(function() { hljs.initHighlightingOnLoad(); }, 0);
   }
 }
 </script>
@@ -248,7 +248,7 @@ div.tocify {
 </ul>
 <div id="simple-linear-regression" class="section level1">
 <h1>Simple linear regression</h1>
-<p>Simple linear regression is a very straightforward approach for predicting a quantitative response <span class="math inline">\(Y\)</span> on the basis of a single predictor variable <span class="math inline">\(X\)</span>. The relationship can be written as: <span class="math display">\[Y \approx \beta_0 + \beta_1X\]</span>.</p>
+<p>Simple linear regression is a very straightforward approach for predicting a quantitative response <span class="math inline">\(Y\)</span> on the basis of a single predictor variable <span class="math inline">\(X\)</span>. The relationship can be written as: <span class="math display">\[Y \approx \beta_0 + \beta_1X\]</span></p>
 <p>In this advertising example, <span class="math inline">\(Y\)</span> represent sales and <span class="math inline">\(X\)</span> represents TV or radio or newspaper advertising. Mathematically the equation can be written as: <span class="math display">\[sales \approx \beta_0 + \beta_1 \times TV\]</span></p>
 <p>where <span class="math inline">\(\beta_0\)</span> is intercept and <span class="math inline">\(\beta_1\)</span> is slope. These <span class="math inline">\(\beta_0\)</span> and <span class="math inline">\(\beta_1\)</span> are unknown constants these are known as model <em>coefficients</em> or <em>parameters</em>.</p>
 <p>When training data is used to estimate <span class="math inline">\(\beta_0\)</span> and <span class="math inline">\(\beta_1\)</span> and to predict future sales <span class="math inline">\(Y\)</span> then a hat symbol is used to denote the estimated value for an unknown parameter or coefficient, or to denote the predicted value of the response. The equation can be written as: <span class="math display">\[y = \hat \beta_0 + \hat \beta_1x\]</span></p>

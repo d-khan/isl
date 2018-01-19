@@ -30,7 +30,7 @@ There are few important questions that we might seek to address:
 * Is there synergy among the advertising media?  
 
 # Simple linear regression  
-Simple linear regression is a very straightforward approach for predicting a quantitative response $Y$ on the basis of a single predictor variable $X$. The relationship can be written as: $$Y \approx \beta_0 + \beta_1X$$.
+Simple linear regression is a very straightforward approach for predicting a quantitative response $Y$ on the basis of a single predictor variable $X$. The relationship can be written as: $$Y \approx \beta_0 + \beta_1X$$
 
 In this advertising example, $Y$ represent sales and $X$ represents TV or radio or newspaper advertising. Mathematically the equation can be written as: $$sales \approx \beta_0 + \beta_1 \times TV$$
 
