@@ -15,3 +15,44 @@ output:
 
 Resampling methods involve repeatedly drawing samples from a training set and refitting the same statistical method multiple times using different subsets of the training data. There are two most commonly used resampling methods, *cross-valdiation* and *bootstrap*. **Cross-validation** can be used to estimate the test error associated with a given statistical learning method in order to evaluate its performance, or to select the appropriate level of flexibility. The process of evaluating a model's performance is known as *model assessment*. The process of selecting the proper level of flexibility for a model is known as *model selection*. The **bootstrap** is used to measure accuracy of a parameter estimate of a given statistical learning method.
 
+# Cross-Validation
+
+## The Validation Set Approach
+
+
+## Leave-One-Out Cross-Validation
+*The following example uses boot package with polynomial degree from 1 to 5.*
+```{r using boot package}
+library(boot)
+library(ISLR)
+set.seed(1)
+cv.error = rep(0,5)
+for (i in 1:5) {
+glm.fit = glm(mpg~poly(horsepower,i),data=Auto)
+cv.error[i] = cv.glm(Auto,glm.fit)$delta[1]
+}
+#MSE. The sqrt of MSE gives RMSE (Root Mean Squared Error) and the unit is the same as y-axis unit. I n this example (mpg)
+round(cv.error,2)
+```
+
+*The following example uses boot package with polynomial degree from 1 to 5.*
+```{r using caret package}
+library(ISLR)
+library(caret)
+set.seed(1)
+model.list = as.list(rep(0,5))
+for (i in 1:5) {
+model.list[i] <- train(
+  mpg ~ poly(horsepower,i), Auto,
+  method = 'lm',
+  trControl = trainControl(
+    method = "LOOCV",
+    verboseIter = FALSE
+  )
+)
+model.list[[i]]
+}
+#RMSE
+model
+```
+
