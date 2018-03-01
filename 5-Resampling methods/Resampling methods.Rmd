@@ -1,0 +1,17 @@
+---
+title: "Linear Regression"
+author: "Dr Danish Khan"
+date: '2018-02-28'
+output:
+  html_document:
+    fig_width: 7
+    fig_height: 6
+    fig_caption: true
+    toc: true
+    toc_float: true
+    toc_depth: 2
+    theme: journal
+---
+
+Resampling methods involve repeatedly drawing samples from a training set and refitting the same statistical method multiple times using different subsets of the training data. There are two most commonly used resampling methods, *cross-valdiation* and *bootstrap*. **Cross-validation** can be used to estimate the test error associated with a given statistical learning method in order to evaluate its performance, or to select the appropriate level of flexibility. The process of evaluating a model's performance is known as *model assessment*. The process of selecting the proper level of flexibility for a model is known as *model selection*. The **bootstrap** is used to measure accuracy of a parameter estimate of a given statistical learning method.
+
