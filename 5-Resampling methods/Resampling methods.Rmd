@@ -16,13 +16,39 @@ output:
 Resampling methods involve repeatedly drawing samples from a training set and refitting the same statistical method multiple times using different subsets of the training data. There are two most commonly used resampling methods, *cross-valdiation* and *bootstrap*. **Cross-validation** can be used to estimate the test error associated with a given statistical learning method in order to evaluate its performance, or to select the appropriate level of flexibility. The process of evaluating a model's performance is known as *model assessment*. The process of selecting the proper level of flexibility for a model is known as *model selection*. The **bootstrap** is used to measure accuracy of a parameter estimate of a given statistical learning method.
 
 # Cross-Validation
+*Test error rate* is the average error that results from using a statistical learning method to predict the response on a new observation that is, a measurement that was not used in training the method. The test error can be easily calculated if a designated test set is available. Unfortunately, this is usually not the case. In contrast, the training error can be easily calculated by applying the statistical learning method to the observations used in its training. But the training error rate often is quite different from the test error rate, and in particular the former can dramatically underestimate the latter. In cross-validation, consider a class of methods that estimate the
+test error rate by holding out a subset of the training observations from the fitting process, and then applying the statistical learning method to those held out observations.
 
-## The Validation Set Approach
+## The Validation Set Approach 
+Suppose that we would like to estimate the test error associated with fitting a particular statistical learning method on a set of observations. The validation set approach is a very simple strategy for this task. It involves randomly dividing the available set of observations into two parts, a training set and a validation set or hold-out set. The model is fit on the training set, and the fitted model is used to predict the responses for the observations in the validation set. The resulting validation set error rate—typically assessed using MSE in the case of a quantitative response—provides an estimate of the test error rate.
+
+### Steps in the validation set approach ###
+1. Randomly divide the data into two parts; a training set and a validation set.
+2. Fit the model on the training set.
+3. Fitted model is used to predict the responses for the observations in the validation set.  
+
+![_Figure: The validation set approach was used on the Auto data set in
+order to estimate the test error that results from predicting mpg using polynomial
+functions of horsepower. Left: Validation error estimates for a single split into
+training and validation data sets. Right: The validation method was repeated ten
+times, each time using a different random split of the observations into a training
+set and a validation set. This illustrates the variability in the estimated test MSE
+that results from this approach._](5-2.png)
+
+### Drawback of using validation set approach
+1. As is shown in the right-hand panel of the Figure, the validation estimate of the test error rate can be highly variable, depending on precisely which observations are included in the training set and which observations are included in the validation set.
+
+2. In the validation approach, only a subset of the observations—those that are included in the training set rather than in the validation set—are used to fit the model. Since statistical methods tend to perform worse when trained on fewer observations, this suggests that the validation set error rate may tend to overestimate the test error rate for the model fit on the entire data set.
+
+```{r}
+
+
+```
 
 
 ## Leave-One-Out Cross-Validation
 *The following example uses boot package with polynomial degree from 1 to 5.*
-```{r using boot package}
+```{r using boot package,cache=TRUE}
 library(boot)
 library(ISLR)
 set.seed(1)
@@ -36,23 +62,55 @@ round(cv.error,2)
 ```
 
 *The following example uses boot package with polynomial degree from 1 to 5.*
-```{r using caret package}
+```{r using caret package,cache=TRUE}
+#library(ISLR)
+#library(caret)
+#set.seed(1)
+#model.list = as.list(rep(0,5))
+#for (i in 1:5) {
+#model.list[i] <- train(
+#  mpg ~ poly(horsepower,i), Auto,
+#  method = 'lm',
+#  trControl = trainControl(
+#    method = "LOOCV",
+#    verboseIter = FALSE
+#  )
+#)
+#model.list[[i]]
+#}
+#RMSE
+#model
+```
+
+## k-Fold Cross-Validation
+*The following example uses boot package with polynomial degree from 1 to 5.*
+```{r,cache=TRUE}
+set.seed(17)
+cv.error = rep(0,5)
+for (i in 1:5){
+  glm.fit = glm(mpg~poly(horsepower,i),data=Auto)
+  cv.error[i] = cv.glm(Auto,glm.fit,K=10)$delta[1]
+}
+round(cv.error,2)
+
+```
+
+*The following example uses caret package with polynomial degree from 1 to 5.*
+```{r,cache=TRUE}
 library(ISLR)
 library(caret)
 set.seed(1)
 model.list = as.list(rep(0,5))
 for (i in 1:5) {
-model.list[i] <- train(
-  mpg ~ poly(horsepower,i), Auto,
+model.list <- train(
+  mpg ~ poly(horsepower,1), Auto,
   method = 'lm',
   trControl = trainControl(
-    method = "LOOCV",
+    method = "cv",number=10,
     verboseIter = FALSE
   )
 )
-model.list[[i]]
 }
-#RMSE
-model
-```
+model.list
 
+```
